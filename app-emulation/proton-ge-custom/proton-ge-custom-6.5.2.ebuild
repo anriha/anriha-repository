@@ -25,9 +25,22 @@ S="${WORKDIR}"
 src_install()
 {
 	default
-	local compatdir=/opt/compatibilitytools.d
-	dodir ${compatdir}
-	into ${compatdir}
+	local compatdir=/usr/share/steam/compatibilitytools.d/
+
 	insinto ${compatdir}
 	doins -r Proton-${VERSION}
+
+	exeinto ${compatdir}/Proton-${VERSION}/
+	doexe Proton-${VERSION}/proton
+	exeinto ${compatdir}/Proton-${VERSION}/dist/bin/
+	doexe Proton-${VERSION}/dist/bin/wine
+	doexe Proton-${VERSION}/dist/bin/wine64
+	doexe Proton-${VERSION}/dist/bin/wine64-preloader
+	doexe Proton-${VERSION}/dist/bin/wine-preloader
+	doexe Proton-${VERSION}/dist/bin/wineserver
+	doexe Proton-${VERSION}/dist/bin/cabextract
+	doexe Proton-${VERSION}/dist/bin/msidb
+	doexe Proton-${VERSION}/dist/bin/msiexec
+	# fperms 0755 ${compatdir}/Proton-${VERSION}/proton
+	# fperms 0755 ${compatdir}/Proton-${VERSION}/dist/bin/wine
 }
